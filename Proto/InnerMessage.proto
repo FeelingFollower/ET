@@ -249,3 +249,36 @@ message G2M_SessionDisconnect // IActorLocationMessage
     int32 RpcId = 90;
     int64 ActorId = 94;
 }
+
+message DBQueryLSSJsonRequest // IRequest
+{
+	int32 RpcId = 90;
+	string CollectionName = 1;
+	string Json = 2;
+	string LSS = 3;
+}
+
+message DBQueryLSSJsonResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated ComponentWithId Components = 1;
+}
+
+message DBQueryCountJsonRequest // IRequest
+{
+	int32 RpcId = 90;
+	string CollectionName = 1;
+	string Json = 2;
+}
+
+message DBQueryCountJsonResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	int64 Components = 1;
+}

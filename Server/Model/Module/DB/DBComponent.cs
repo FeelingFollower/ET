@@ -91,5 +91,25 @@ namespace ETModel
 
 			return tcs.Task;
 		}
-	}
+
+        public ETTask<List<ComponentWithId>> GetLSSJson(string collectionName, string LSS)
+        {
+            ETTaskCompletionSource<List<ComponentWithId>> tcs = new ETTaskCompletionSource<List<ComponentWithId>>();
+
+            DBQueryLSSJsonTask dBQueryWhereJsonTask = ComponentFactory.Create<DBQueryLSSJsonTask, string, string, ETTaskCompletionSource<List<ComponentWithId>>>(collectionName, LSS, tcs);
+            this.tasks[(int)((ulong)dBQueryWhereJsonTask.Id % taskCount)].Add(dBQueryWhereJsonTask);
+
+            return tcs.Task;
+        }
+
+        public ETTask<long> GetCountJson(string collectionName, string json)
+        {
+            ETTaskCompletionSource<long> tcs = new ETTaskCompletionSource<long>();
+
+            DBQueryCountJsonTask dBQueryWhereJsonTask = ComponentFactory.Create<DBQueryCountJsonTask, string, string, ETTaskCompletionSource<long>>(collectionName, json, tcs);
+            this.tasks[(int)((ulong)dBQueryWhereJsonTask.Id % taskCount)].Add(dBQueryWhereJsonTask);
+
+            return tcs.Task;
+        }
+    }
 }

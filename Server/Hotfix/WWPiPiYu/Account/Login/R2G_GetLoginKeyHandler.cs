@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using ETModel;
 
 namespace ETHotfix
@@ -14,7 +15,8 @@ namespace ETHotfix
 				long key = RandomHelper.RandInt64();
 				Game.Scene.GetComponent<GateSessionKeyComponent>().Add(key, message.Account);
 				response.Key = key;
-				reply(response);
+                response.Message = MethodBase.GetCurrentMethod().DeclaringType.FullName + "." + MethodBase.GetCurrentMethod().Name;
+                reply(response);
 			}
 			catch (Exception e)
 			{
