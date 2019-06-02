@@ -72,3 +72,2672 @@ message G2C_PlayerInfo // IResponse
     repeated int32 TestRepeatedInt32 = 4;
     repeated int64 TestRepeatedInt64 = 5;
 }
+
+
+
+
+
+
+message C2G_AddAccountInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	string Name = 1; //姓名
+	string BornDate = 2; //出生年月
+	string IDCardNumber = 3; //身份证号码
+	int32 Sex = 4; //性别
+	int32 IsFinishIdentify = 5; //是否完成实名认证
+	string HeadImage = 6; //头像照片
+	string FingerprintCode = 7; //指纹识别码
+	int32 UserImpotentLevel = 8; //用户等级
+	int64 AccountID = 9; //用户id
+}
+
+message G2C_AddAccountInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+	int64 InfoID = 2; //信息id
+}
+
+message C2G_UpdateAccountInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	string Name = 1; //姓名
+	string BornDate = 2; //出生年月
+	string IDCardNumber = 3; //身份证号码
+	int32 Sex = 4; //性别
+	int32 IsFinishIdentify = 5; //是否完成实名认证
+	string HeadImage = 6; //头像照片
+	string FingerprintCode = 7; //指纹识别码
+	int32 UserImpotentLevel = 8; //用户等级
+	int64 AccountID = 9; //用户id
+	string FaceprintCode = 10; //面部识别码
+	int32 PrintType = 11; //识别类型 0未选择1指纹2面部
+}
+
+message G2C_UpdateAccountInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryAccountInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryAccountInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	string Name = 1; //姓名
+	string BornDate = 2; //出生年月
+	string IDCardNumber = 3; //身份证号码
+	int32 Sex = 4; //性别
+	int32 IsFinishIdentify = 5; //是否完成实名认证
+	string HeadImage = 6; //头像照片
+	string FingerprintCode = 7; //指纹识别码
+	int32 UserImpotentLevel = 8; //用户等级
+	string FaceprintCode = 9; //面部识别码
+	int32 PrintType = 10; //识别类型 0未选择1指纹2面部
+}
+
+
+
+
+
+message C2G_AddGuestAccount // IRequest
+{
+	int32 RpcId = 90;
+
+	string RandomAccount = 1; //随机码
+	string Password = 2; //密码
+	string ManagerPassword = 3; //管理密码
+	string EMail = 4; //邮箱
+	string LastOnlineTime = 5; //最后一次在线时间
+	string RegistrTime = 6; //注册时间 ""不修改
+	int32 CumulativeTime = 7; //在线累积时间
+	int64 AccountID = 8; //用户id
+	string Account = 9; //手机号码
+}
+
+message G2C_AddGuestAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_UpdateGuestAccount // IRequest
+{
+	int32 RpcId = 90;
+	
+	string RandomAccount = 1; //随机码
+	string Password = 2; //密码
+	string ManagerPassword = 3; //管理密码
+	string EMail = 4; //邮箱
+	string LastOnlineTime = 5; //最后一次在线时间
+	string RegistrTime = 6; //注册时间
+	int32 CumulativeTime = 7; //在线累积时间
+	int64 AccountID = 8; //用户id
+	string Account = 9; //手机号码
+	int32 State = 10; //是否删除了 0未操作，1删除
+}
+
+message G2C_UpdateGuestAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryGuestAccount // IRequest
+{
+	int32 RpcId = 90;
+
+	string AccountID = 1; //随机码
+}
+
+message G2C_QueryGuestAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string RandomAccount = 1; //随机码
+	string Password = 2; //密码
+	string ManagerPassword = 3; //管理密码
+	string EMail = 4; //邮箱
+	string LastOnlineTime = 5; //最后一次在线时间
+	string RegistrTime = 6; //注册时间
+	int32 CumulativeTime = 7; //在线累积时间
+	string Account = 8; //手机号码
+	int32 State = 9; //是否删除了 0未操作，1删除
+	bool IsOk = 10; 
+}
+
+
+
+message C2G_GuestToMainAccount // IRequest
+{
+	int32 RpcId = 90;
+
+	string RandomAccount = 1;
+}
+
+message G2C_GuestToMainAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_AddMainAccount // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 InfoID = 1; //信息id
+	string Account = 2; //账户(手机号)
+	string Password = 3; //密码
+	string ManagerPassword = 4; //管理密码
+	string EMail = 5; //邮箱
+	string LastOnlineTime = 6; //最后一次在线时间
+	string RegistrTime = 7; //注册时间
+	int32 CumulativeTime = 8; //在线累积时间
+	int64 AccountID = 9; //用户id
+}
+
+message G2C_AddMainAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_UpdateMainAccount // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 InfoID = 1; //信息id
+	string Account = 2; //账户(手机号)
+	string Password = 3; //密码
+	string ManagerPassword = 4; //管理密码
+	string EMail = 5; //邮箱
+	string LastOnlineTime = 6; //最后一次在线时间
+	string RegistrTime = 7; //注册时间
+	int32 CumulativeTime = 8; //在线累积时间
+	int64 AccountID = 9; //用户id
+	int32 State = 10; //是否删除了 0未操作，1删除
+}
+
+message G2C_UpdateMainAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryMainAccount // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryMainAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 InfoID = 1; //信息id
+	string Account = 2; //账户(手机号)
+	string Password = 3; //密码
+	string ManagerPassword = 4; //管理密码
+	string EMail = 5; //邮箱
+	string LastOnlineTime = 6; //最后一次在线时间
+	string RegistrTime = 7; //注册时间
+	int32 CumulativeTime = 8; //在线累积时间
+	int32 State = 9; //是否删除了 0未操作，1删除
+}
+
+
+
+message C2G_UserAdress // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 InfoID = 1; //信息id
+    string OldAdress = 2; //旧的地址
+	int64 AccountID = 3; //用户id
+	int32 Type = 4; //执行类型1添加2删除3修改
+	string NewAddress = 5; //新的地址
+}
+
+message G2C_UserAdress // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryUserAdress // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户ID
+	int64 InfoID = 2; //信息ID
+}
+
+message G2C_QueryUserAdress // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+    repeated string AdressList = 1; //详细地址列表
+}
+
+
+message C2G_AddUserLoginRecord // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 InfoID = 1; //信息id
+    int32 LoginTimes = 2; //用户当前登录次数
+    string IP = 3; //本次登录IP
+    string LoginLocInfo = 4; //登录地点文字描述
+    int32 AbnormalStateCode = 5; //异常状态码
+    string LoginDate = 6; //登录时间
+	int64 AccountID = 7; //用户id
+}
+
+message G2C_AddUserLoginRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryUserLoginRecord // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryUserLoginRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated LoginRecord userlist = 1;
+	bool IsOk = 2;
+}
+
+message LoginRecord // IMessage
+{
+	int64 AccountID = 1;	//所属账号id
+	int64 InfoID = 2; //信息id
+    int32 LoginTimes = 3; //用户当前登录次数
+    string IP = 4; //本次登录IP
+    string LoginLocInfo = 5; //登录地点文字描述
+    int32 AbnormalStateCode = 6; //异常状态码
+    string LoginDate = 7; //登录时间
+}
+
+
+message C2G_AddUserPortrait // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 InfoID = 1; //信息id
+    int32 Portrait = 2; //用户习性标签表（标签编号）
+	int64 AccountID = 3; //用户id
+}
+
+message G2C_AddUserPortrait // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryUserPortrait // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+	int64 InfoID = 2; //信息id
+}
+
+message G2C_QueryUserPortrait // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+    repeated int32 PortraitList = 1; //用户习性标签表（标签编号）
+}
+
+
+
+
+message C2G_UserProductInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 InfoID = 1; //信息id
+    int32 Product = 2; //用户当前产品
+	int64 AccountID = 3; //用户id
+	int32 Type = 4; //执行类型1添加2删除
+
+}
+
+message G2C_UserProductInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryUserProductInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+	int64 InfoID = 2; //信息id
+}
+
+message G2C_QueryUserProductInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+    repeated int32 ProductList = 1; //用户当前产品列表
+	int32 UserPoint = 2; //用户积分
+}
+
+
+message C2G_AddUserProductRecord // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 InfoID = 1; //信息id
+	int32 ProductID = 2; //用户当前产品id
+	int32 Level = 3; //用户等级
+	string StartDate = 4; //开始时间日期
+	string EndDate = 5; //结束时间日期
+	repeated int32 RightCodeList = 6; //权益id列表
+	int32 BuyType = 7; //如何购买的（渠道、方式）
+	float Price = 8; //购买的金额
+	int64 AccountID = 9; //用户id
+}
+
+message G2C_AddUserProductRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryUserProductRecord // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryUserProductRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated ProductRecord userlist = 1;
+}
+
+message ProductRecord // IMessage
+{
+	int64 AccountID = 1;	//所属账号id
+	int64 InfoID = 2;	//所属信息id
+	int32 ProductID = 3; //用户当前产品id
+	int32 Level = 4; //用户等级
+	string StartDate = 5; //开始时间日期
+	string EndDate = 6; //结束时间日期
+	repeated int32 RightCodeList = 7; //权益id列表
+	int32 BuyType = 8; //如何购买的（渠道、方式）
+	float Price = 9; //购买的金额
+}
+
+
+
+message C2G_AddUserRequestRecord // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 InfoID = 1; //信息id
+	int32 RequestTimes = 2; //用户当前申请次数id
+	string IP = 3; //本次申请IP
+	string RequestInfo = 4; //申请描述
+	int32 RequestTypeCode = 5; //申请类型码
+	string RequestResultCode = 6; //申请状态
+	int64 AccountID = 7; //用户id
+}
+
+message G2C_AddUserRequestRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryUserRequestRecord // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryUserRequestRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated RequestRecord userlist = 1;
+}
+
+message RequestRecord // IMessage
+{
+	int64 AccountID = 1;	//所属账号id
+	int64 InfoID = 2;	//所属信息id
+	int32 RequestTimes = 3;	//用户当前申请次数
+	string IP = 4;	//本次申请IP
+	string RequestInfo = 5;	//申请描述
+	int32 RequestTypeCode = 6;	  //申请类型码
+	string RequestResultCode = 7;	//申请状态
+}
+
+
+
+
+
+
+
+
+
+
+message C2G_AddDealOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ByInvAccountID = 1; //好友id
+	int64 ProductID = 2; //产品id
+	repeated int64 InvItemList = 3; //邀请者交易物品列表
+	int32 InvProductPoint = 4; //邀请者产品积分
+	int32 InvProductDiamond = 5; //邀请者产品钻石
+	repeated int64 ByInvItemList = 6; //被邀请者交易物品列表
+	int32 ByInvProductPoint = 7; //被邀请者产品积分
+	int32 ByInvProductDiamond = 8; //被邀请者产品钻石
+	repeated int64 MessageList = 9; //交易聊天记录
+	string CreateDate = 10; //创建时间
+	string DealDate = 11; //成交时间
+	string InvIP = 12; //邀请者IP
+	string ByInvIP = 13; //被邀请者IP
+	int32 State = 14; //状态
+	int64 InvAccountID = 15; //所属id
+}
+
+message G2C_AddDealOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_UpdateDealOrder // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 ByInvAccountID = 1; //好友id
+	int64 ProductID = 2; //产品id
+	repeated int64 InvItemList = 3; //邀请者交易物品列表
+	int32 InvProductPoint = 4; //邀请者产品积分
+	int32 InvProductDiamond = 5; //邀请者产品钻石
+	repeated int64 ByInvItemList = 6; //被邀请者交易物品列表
+	int32 ByInvProductPoint = 7; //被邀请者产品积分
+	int32 ByInvProductDiamond = 8; //被邀请者产品钻石
+	repeated int64 MessageList = 9; //交易聊天记录
+	string CreateDate = 10; //创建时间
+	string DealDate = 11; //成交时间
+	string InvIP = 12; //邀请者IP
+	string ByInvIP = 13; //被邀请者IP
+	int32 State = 14; //状态
+}
+
+message G2C_UpdateDealOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryDealOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryDealOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated Dealorder userlist = 1;
+}
+
+message Dealorder // IMessage
+{
+	int64 ByInvAccountID = 1; //好友id
+	int64 ProductID = 2; //产品id
+	repeated int64 InvItemList = 3; //邀请者交易物品列表
+	int32 InvProductPoint = 4; //邀请者产品积分
+	int32 InvProductDiamond = 5; //邀请者产品钻石
+	repeated int64 ByInvItemList = 6; //被邀请者交易物品列表
+	int32 ByInvProductPoint = 7; //被邀请者产品积分
+	int32 ByInvProductDiamond = 8; //被邀请者产品钻石
+	repeated int64 MessageList = 9; //交易聊天记录
+	string CreateDate = 10; //创建时间
+	string DealDate = 11; //成交时间
+	string InvIP = 12; //邀请者IP
+	string ByInvIP = 13; //被邀请者IP
+	int32 State = 14; //状态
+}
+
+
+
+
+
+
+
+
+
+message C2G_AddGoodsOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 GoodsID = 1; //好友id
+	int64 GoodsDataID = 2; //产品id
+	float Price = 3; //邀请者交易物品列表
+	repeated string Intrduce = 4; //邀请者产品积分
+	string PublicTime = 5; //邀请者产品钻石
+	int64 InvAccountID = 6; //所属id
+}
+
+message G2C_AddGoodsOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_UpdateGoodsOrder // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 GoodsID = 1; //好友id
+	int64 GoodsDataID = 2; //产品id
+	float Price = 3; //邀请者交易物品列表
+	repeated string Intrduce = 4; //邀请者产品积分
+	string PublicTime = 5; //邀请者产品钻石
+	int64 InvAccountID = 6; //所属id
+}
+
+message G2C_UpdateGoodsOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryGoodsOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryGoodsOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 GoodsID = 1; //好友id
+	int64 GoodsDataID = 2; //产品id
+	float Price = 3; //邀请者交易物品列表
+	repeated string Intrduce = 4; //邀请者产品积分
+	string PublicTime = 5; //邀请者产品钻石
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+message C2G_UpdateChatRoomMessage // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 ByInvAccountID = 1; //接收人ID
+	string SendDate = 2; //发送时间
+	repeated string Message = 3; //内容
+	int64 ChatRoomID = 4; //所属聊天室ID
+	int64 InvAccountID = 5; //发送人ID
+}
+
+message G2C_UpdateChatRoomMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+
+
+message C2G_AddFriendInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ByInvAccountID = 1; //好友id
+	repeated int64 DateMessageIDList = 2; //聊天日期数据ID列表
+	string LastDate = 3; //上一次聊天时间
+	repeated int64 LiveMassageList = 4; //留言消息列表
+	int32 GroupNumber = 5; //群组编号
+	int64 InvAccountID = 6; //所属ID
+}
+
+message G2C_AddFriendInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_UpdateFriendInfo // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 ByInvAccountID = 1; //好友id
+	repeated int64 DateMessageIDList = 2; //聊天日期数据ID列表
+	string LastDate = 3; //上一次聊天时间
+	repeated int64 LiveMassageList = 4; //留言消息列表
+	int32 GroupNumber = 5; //群组编号
+	int64 InvAccountID = 6; //所属ID
+}
+
+message G2C_UpdateFriendInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryFriendInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryFriendInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	int64 ByInvAccountID = 1; //好友id
+	repeated int64 DateMessageIDList = 2; //聊天日期数据ID列表
+	string LastDate = 3; //上一次聊天时间
+	repeated int64 LiveMassageList = 4; //留言消息列表
+	int32 GroupNumber = 5; //群组编号
+}
+
+
+
+
+message C2G_AddGroupInfo // IRequest
+{
+	int32 RpcId = 90;
+	
+	string GroupPassword = 1; //群组密码
+	string ColorCode = 2; //颜色代码
+	string Name = 3; //群组名称
+	string CreateDate = 4; //创建时间
+	int32 GroupNumber = 5; //群组编号
+	int32 UseState = 6; //是否删除了
+	int64 InvAccountID = 7; //所属ID
+}
+
+message G2C_AddGroupInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_UpdateGroupInfo // IRequest
+{
+	int32 RpcId = 90;
+	
+	string GroupPassword = 1; //群组密码
+	string ColorCode = 2; //颜色代码
+	string Name = 3; //群组名称
+	string CreateDate = 4; //创建时间
+	int32 GroupNumber = 5; //群组编号
+	int32 UseState = 6; //是否删除了
+	int64 InvAccountID = 7; //所属ID
+}
+
+message G2C_UpdateGroupInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryGroupInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryGroupInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string GroupPassword = 1; //群组密码
+	string ColorCode = 2; //颜色代码
+	string Name = 3; //群组名称
+	string CreateDate = 4; //创建时间
+	int32 GroupNumber = 5; //群组编号
+	int32 UseState = 6; //是否删除了
+}
+
+
+message C2G_AddRelationInfo // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 InfoID = 1; //所属信息id
+	repeated int64 FriendIDList = 2; //存储好友的ID
+	repeated int64 BlackIDList = 3; //黑名单
+	repeated int64 GroupList = 4; //群组信息列表
+	repeated int64 ChatRoomList = 5; //聊天室编号列表
+	int64 InvAccountID = 6; //所属ID
+}
+
+message G2C_AddRelationInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_UpdateRelationInfo // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 InfoID = 1; //所属信息id
+	repeated int64 FriendIDList = 2; //存储好友的ID
+	repeated int64 BlackIDList = 3; //黑名单
+	repeated int64 GroupList = 4; //群组信息列表
+	repeated int64 ChatRoomList = 5; //聊天室编号列表
+	int64 InvAccountID = 6; //所属ID
+}
+
+message G2C_UpdateRelationInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryRelationInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryRelationInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 InfoID = 1; //所属信息id
+	repeated int64 FriendIDList = 2; //存储好友的ID
+	repeated int64 BlackIDList = 3; //黑名单
+	repeated int64 GroupList = 4; //群组信息列表
+	repeated int64 ChatRoomList = 5; //聊天室编号列表
+}
+
+
+
+message C2G_AddRequestInfo // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 ByInvAccountID = 1; //被邀请ID
+	string RequestMessage = 2; //申请信息
+	string Note = 3; //申请的备注
+	int32 StateCode = 4; //状态
+	string RequestDate = 5; //申请时间
+	string ProcessDate = 6; //处理时间
+	int64 InvAccountID = 7; //所属ID
+}
+
+message G2C_AddRequestInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_UpdateRequestInfo // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 ByInvAccountID = 1; //被邀请ID
+	string RequestMessage = 2; //申请信息
+	string Note = 3; //申请的备注
+	int32 StateCode = 4; //状态
+	string RequestDate = 5; //申请时间
+	string ProcessDate = 6; //处理时间
+	int64 InvAccountID = 7; //所属ID
+}
+
+message G2C_UpdateRequestInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+message C2G_QueryRequestInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 AccountID = 1; //用户id
+}
+
+message G2C_QueryRequestInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 ByInvAccountID = 1; //被邀请ID
+	string RequestMessage = 2; //申请信息
+	string Note = 3; //申请的备注
+	int32 StateCode = 4; //状态
+	string RequestDate = 5; //申请时间
+	string ProcessDate = 6; //处理时间
+}
+
+
+message C2G_UpdateUserMessage // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 ByInvAccountID = 1; //接收人ID
+	string SendDate = 2; //发送时间
+	repeated string Message = 3; //内容
+	int64 InvAccountID = 4; //发送人ID
+}
+
+message G2C_UpdateUserMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+message C2G_UpdateWalletRecord // IRequest
+{
+	int32 RpcId = 90;
+	
+	float Amount = 1; //购买数额
+	string Info = 2; //交易信息
+	string CreateDate = 3; //创建时间
+	string DealDate = 4; //成交时间
+	string SpeiaclInfo = 5; //特殊状态
+	int32 Type = 6; //类型
+	int32 State = 7; //交易状态
+	int64 WalletID = 8; //所属钱包id
+}
+
+message G2C_UpdateWalletRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsOk = 1;
+}
+
+
+
+
+message C2R_RegistForSaveAccount // IRequest
+{
+	int32 RpcId = 90;
+	string	Account	 = 1;	// 帐号
+	string	Password = 2;	// 密码
+	string PayPassword = 3; // 支付密码
+	string RegistTime = 4 ;
+	
+	string RecommondedNumber = 5;
+}
+
+message R2C_RegistForSaveAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	string Address = 1;
+	int64 Key	    = 2;
+	bool IsSuccess = 3;
+	int32 State = 4 ;
+	int64 UserID = 5;
+}
+
+message C2R_FindPassword // IRequest
+{
+	int32 RpcId = 90;
+	string	Account	 = 1;	// 帐号
+	string	Password	 = 2;	// 帐号
+}
+
+message R2C_FindPassword // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Address = 1;
+	int64 Key	    = 2;
+	bool IsSuccess = 3;
+}
+
+message C2R_CompareAccount // IRequest
+{
+	int32 RpcId = 90;
+	string	PhoneNumber	 = 1;	// 帐号
+	int32 State = 2;     //找回还是注册
+}
+
+message R2C_CompareAccount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Address = 1;
+	int64 Key	    = 2;
+	bool IsSuccess = 3;
+	int32 State = 4;
+}
+
+message C2R_ForSaveInformation // IRequest
+{
+	int32 RpcId = 90;
+	string	Account	 = 1;	// 帐号
+	string HeadPhoto = 2;  //头像
+	string Nickname = 3;  //昵称
+	int32 Age = 4;  //年龄
+	string IDCardNumber = 5;  //身份证号码
+	int32 Sex = 6;  //性别
+	string BornDate = 7; //出生年月
+	int64 AccountID = 8;  //账户id
+	int32 State = 9 ; //1创建，2修改
+	int32 IsFinishIdentify = 10 ; //是否身份认证
+	int32 UserImpotentLevel = 11 ; //用户重要等级
+	string FingerprintCode = 12 ; //指纹识别码
+	string FaceprintCode = 13 ; //面部识别码
+	int32 PrintType = 14 ; //识别类型
+}
+
+message R2C_ForSaveInformation // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	string Address = 1;
+	int64 Key	    = 2;
+	bool IsSuccess = 3;
+	int32 State =4;
+}
+
+message C2G_ChangePassword // IRequest
+{
+	int32 RpcId = 90;
+	string	Account	 = 1;	// 帐号
+	string	Password	 = 2;	
+	string  NewPassword = 3;
+	int32 State = 4;	//1、重置登陆密码2、修改登陆密码 3、登陆密码校验
+}
+
+message G2C_ChangePassword // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Address = 1;
+	int64 Key	    = 2;
+	bool IsSuccess = 3;
+}
+
+message C2G_GetPersonalInformation // IRequest
+{
+	int32 RpcId = 90;
+	int64 UserID = 1;	// 帐号
+	string PhoneNumber = 2;
+}
+
+message G2C_GetPersonalInformation // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	string BornDate = 1;	//出生年月
+	string HeadPhoto = 2;	//头像
+	string Nickname = 3;	//昵称
+	int32 Age = 4;	//年龄
+	string FaceprintCode = 5;	//面部识别码
+	int32 Sex = 6;	//性别
+	string FingerprintCode = 7;	//指纹识别码
+	int32 IsFinishIdentify = 8;		//是否完成身份验证
+	string IDCardNumber = 9;	//身份证号码	
+	bool IsSuccess = 10;
+	int32 UserImpotentLevel = 11; //用户重要等级
+}
+
+message C2G_AddressManager // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountID	 = 1;	// 帐号id
+	string DetailsAddress = 2;	//详细地址
+	int32 DoState = 3;	//1、读取 2、操作
+	int32 AddressType = 4; //1、添加 2、删除
+}
+
+message G2C_AddressManager // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+	repeated string AdressList = 2; //详细地址
+	int64 InfoID = 3; //信息id
+}
+
+message C2G_LoginRecord // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountID	 = 1;	// 帐号id
+	int64 InfoID = 2; //信息id
+	int32 LoginTimes = 3; //用户当前登录次数
+	string IP = 4; //本次登录ip
+	string LoginLocInfo = 5; //登录地点文字描述
+	int32 AbnormalStateCode = 6; //异常状态码
+	string LoginDate = 7; //登录时间
+
+	int32 DoState = 8;	//1、读取 2、操作
+
+}
+
+message G2C_LoginRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+	int64 AccountID	 = 2;	// 帐号id
+	int64 InfoID = 3; //信息id
+	int32 LoginTimes = 4; //用户当前登录次数
+	string IP = 5; //本次登录ip
+	string LoginLocInfo = 6; //登录地点文字描述
+	int32 AbnormalStateCode = 7; //异常状态码
+	string LoginDate = 8; //登录时间
+}
+
+message C2G_FriendList // IRequest
+{
+	int32 RpcId = 90;
+	int64 Account	 = 1;	// 帐号id
+	int64 InfoID = 2;  //信息ID
+	int32 Type = 3; //1、创建好友数据库，2、读取好友列表
+}
+
+message G2C_FriendList // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+	repeated int64 FriendIDList = 2; //好友id列表
+	repeated int64 BlackIDList = 3; //黑名单id列表
+	repeated int64 GroupList = 4; //群组信息列表
+	repeated int64 ChatRoomList = 5; //聊天室列表
+}
+
+message C2G_AddFriendID // IRequest
+{
+	int32 RpcId = 90;
+	int64 Account	 = 1;	// 帐号id
+	int64 FriendID = 2;  //好友ID
+	int32 Type = 3; //1、新增好友，2、删除好友
+	int64 FriendInfoID = 4; //删除的好友信息id
+}
+
+message G2C_AddFriendID // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+}
+
+message C2G_UpdateFriendID // IRequest
+{
+	int32 RpcId = 90;
+	string NickName = 1; //设置的好友昵称
+	string LastDate = 2; //上一次聊天时间
+	string LiveMassage = 3; //留言消息id 暂时不用
+	string DateMessage = 4; //聊天日期数据ID  暂时不用
+	int64 GroupNumber = 5; //群组编号
+	int32 State = 6; //是否删除了
+	int64 FriendInfoID = 7; //修改的好友信息id
+}
+
+message G2C_UpdateFriendID // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+}
+
+message C2G_FriendInfoDateMessage // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 FriendInfoID = 1; //修改的好友信息id
+}
+
+message G2C_FriendInfoDateMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_AddBlackID // IRequest
+{
+	int32 RpcId = 90;
+	int64 Account	 = 1;	// 帐号id
+	int64 BlackID = 2;  //黑名单ID
+	int32 Type = 3; //1、新增黑名单，2、删除黑名单
+}
+
+message G2C_AddBlackID // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+}
+
+message C2G_AddGroup // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 Account	 = 1;	// 帐号id
+	string GroupPassword = 2; //群组密码
+	string ColorCode = 3; //颜色代码
+	string Name = 4; //群组名称
+	string CreateDate = 5; //创建时间
+	int32 UseState = 6; //是否删除了
+	int32 Type = 7; //1、新增群组，2、删除群组
+	int64 DGroupid = 8; //删除的群组id
+	int64 DGroupNumber = 9; //删除的群组编号
+}
+
+message G2C_AddGroup // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+}
+
+message C2G_UpdateGroup // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 GroupNumber = 1; //群组编号
+	string GroupPassword = 2; //群组密码
+	string ColorCode = 3; //颜色代码
+	string Name = 4; //群组名称
+}
+
+message G2C_UpdateGroup // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+}
+
+message C2G_AddChatRoom // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 Account  = 1;	// 帐号id
+	string ManagePassword = 2; //管理密码
+	string PublicBorad = 3; //颜色代码
+	string Name = 4; //聊天室名称
+	string CreateDate = 5; //创建时间
+	int32 GroupType = 6; //创建时间
+}
+
+message G2C_AddChatRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+	int64 ChatRoomid = 2; //聊天室id
+}
+
+message C2G_DeleteChatRoom // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 Account  = 1;	// 帐号id
+	int64 ChatRoomID = 2; //要操作的聊天室id
+
+}
+
+message G2C_DeleteChatRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+}
+
+message C2G_JoinChatRoom // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 Account  = 1;	// 帐号id
+	int64 ChatRoomID = 2; //要操作的聊天室id
+	int32 Type = 3; //1、加入聊天室，2、退出聊天室
+}
+
+message G2C_JoinChatRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+}
+
+message C2G_UpdateChatRoom // IRequest
+{
+	int32 RpcId = 90;
+	
+	string ManagePassword = 1; //管理密码
+	string PublicBorad = 2; //颜色代码
+	string Name = 3; //聊天室名称
+	int32 GroupType = 4; //群组类型
+	int64 ChatRoomID = 5; //账户id
+}
+
+message G2C_UpdateChatRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryChatRoom // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ChatRoomID = 1; //聊天室id
+	int64 Acount = 2; //账户id
+}
+
+message G2C_QueryChatRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string ManagePassword = 1; //管理密码
+	string PublicBorad = 2; //颜色代码
+	string Name = 3; //聊天室名称
+	repeated int64 UserList = 4; //聊天室成员列表
+	string CreateDate = 5; //创建时间
+	int32 GroupType = 6; //群组类型
+	bool IsSuccess = 7;
+	repeated string DateMessageIDList = 8; //聊天日期数据ID列表
+}
+
+message C2G_FriendApply // IRequest
+{
+	int32 RpcId = 90;
+	int64 Account  = 1;	// 帐号id
+	int64 ByAccount = 2; //被邀请账户id
+	string RequestMessage = 3; //申请信息
+	string Note = 4; //申请的备注
+	int32 StateCode = 5; //状态:0、未操作，1、同意，2、拒绝
+	string RequestDate = 6; //申请时间
+	string ProcessDate = 7; //处理时间
+	int32 Type = 8; //1、创建申请
+	int64 RequestInfoid = 9; //要操作的_id
+}
+
+message G2C_FriendApply // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+	int64 RequestInfoid = 2; //申请id
+}
+
+message C2G_FriendApplyOperation // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 RequestInfoid = 1; //要操作的_id
+	int32 StateCode = 2; //状态:0、未操作，1、同意，2、拒绝
+}
+
+message G2C_FriendApplyOperation // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	bool IsSuccess = 1;
+}
+
+message C2G_FriendApplyCount // IRequest
+{
+	int32 RpcId = 90;
+	int64 Account  = 1;	// 帐号id
+}
+
+message G2C_FriendApplyCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsSuccess = 1;
+	repeated int64 RequestInfoidlist = 2; //好友申请的id列表
+}
+
+message C2G_FriendApplyContent // IRequest
+{
+	int32 RpcId = 90;
+	int64 RequestInfoid  = 1;	// 好友申请的id
+}
+
+message G2C_FriendApplyContent // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsSuccess = 1;
+	int64 Account  = 2;	// 帐号id
+	int64 ByAccount = 3; //被邀请账户id
+	string RequestMessage = 4; //申请信息
+	string Note = 5; //申请的备注
+	int32 StateCode = 6; //状态:0、未操作，1、同意，2、拒绝
+	string RequestDate = 7; //申请时间
+	string ProcessDate = 8; //处理时间
+}
+
+message C2G_AddUserMessage // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 ByAccount = 1; //接收人ID
+	string SendDate = 2; //发送时间
+	repeated string Message = 3; //内容
+	int64 Account = 4; //发送人ID
+}
+
+message G2C_AddUserMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryUserMessage // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 UserMessageID = 1; //好友消息id
+}
+
+message G2C_QueryUserMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 ByAccountID = 1; //接收人ID
+	string SendDate = 2; //发送时间
+	repeated string MessageInfo = 3; //内容
+	bool IsSuccess = 4;
+	int64 AccountID = 5; //接收人ID
+
+}
+
+message C2G_AddChatRoomMessage // IRequest
+{
+	int32 RpcId = 90;
+
+	string SendDate = 1; //发送时间
+	repeated string Message = 2; //内容
+	int64 ChatRoomID = 3; //所属聊天室ID
+	int64 AccountID = 4; //发送人ID
+}
+
+message G2C_AddChatRoomMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryChatRoomMessage // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ChatRoomMessageID = 1; //聊天室消息id
+}
+
+message G2C_QueryChatRoomMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string SendDate = 1; //发送时间
+	repeated string MessageInfo = 2; //内容
+	int64 ChatRoomID = 3; //所属聊天室ID
+	bool IsSuccess = 4;
+	int64 AccountID = 5; //ID
+}
+
+message C2G_AddWalletData // IRequest
+{
+	int32 RpcId = 90;
+	
+	string PayPassword = 1; //支付密码
+	float Diamond = 2; //钻石数量
+	string Point = 3; //积分
+	string CreateDate = 4; //创建时间
+	int32 WalletType = 5; //钱包类型 金主等级
+	int64 AccountID = 6; //所属用户id
+}
+
+message G2C_AddWalletData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryWalletData // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 AccountID = 1; //账户id
+}
+
+message G2C_QueryWalletData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string PayPassword = 1; //支付密码
+	float Diamond = 2; //钻石数量
+	string Point = 3; //积分
+	string CreateDate = 4; //创建时间
+	int32 WalletType = 5; //钱包类型 金主等级
+	repeated int32 OffList = 6; //优惠列表
+	int32 State = 7; //是否删除了
+	repeated int32 WalletTipList = 8; //钱包标签
+	bool IsSuccess = 9;
+}
+
+message C2G_UpdateWalletData // IRequest
+{
+	int32 RpcId = 90;
+	
+	string PayPassword = 1; //支付密码
+	int32 WalletType = 2; //钱包类型 金主等级
+	int32 OffList = 3; //优惠列表
+	int32 State = 4; //是否删除了
+	int32 WalletTipList = 5; //钱包标签
+	int64 AccountID = 6; //所属用户id
+}
+
+message G2C_UpdateWalletData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsSuccess = 1;
+}
+
+message C2G_AddWalletRecord // IRequest
+{
+	int32 RpcId = 90;
+	
+	float Amount = 1; //购买数额
+	string Info = 2; //交易信息
+	string CreateDate = 3; //创建时间
+	string DealDate = 4; //成交时间
+	string SpeiaclInfo = 5; //特殊状态
+	int32 Type = 6; //类型
+	int32 State = 7; //交易状态
+	int64 WalletID = 8; //所属钱包id
+}
+
+message G2C_AddWalletRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryWalletRecord // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 WalletID = 1; //钱包id
+}
+
+message G2C_QueryWalletRecord // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	float Amount = 1; //购买数额
+	string Info = 2; //交易信息
+	string CreateDate = 3; //创建时间
+	string DealDate = 4; //成交时间
+	string SpeiaclInfo = 5; //特殊状态
+	int32 Type = 6; //类型
+	int32 State = 7; //交易状态
+	bool IsSuccess = 8;
+}
+
+message C2G_PayGoods // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 GoodsID = 1; //钱包id
+	int64 AccountID = 2; //账户id
+	int32 Count = 3; //购买数量
+	int32 PayType = 4; //支付方式
+}
+
+message G2C_PayGoods // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string PayCode = 1; //购买代码
+	bool IsSuccess = 2;
+}
+
+message C2G_PayHttpMessage // IRequest
+{
+	int32 RpcId = 90;
+
+	string PayHttp = 1; //接收平台回执消息，判断是否支付成功
+	int64 GoodsInfoOrderid = 2; //商品订单id
+	int64 Accountid = 3; //账户id
+}
+
+message G2C_PayHttpMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2G_QueryProductInfoDataCount // IRequest
+{
+	int32 RpcId = 90;
+	
+	int32 Count = 1; //拿取多少个商品id
+	int32 QueryType = 2; //1，店铺查询2，正则名字查询
+	int64 ShopInfoID = 3; //店铺id
+	string QueryConntent = 4; //查询内容
+	float PriceMin = 5; //最低价格
+	float PriceMax = 6; //最高价格
+	repeated int64 ProductInfos = 7; //已有商品id列表
+	int32 StateType = 8; //1，查询上架物品，2查询下架物品
+}
+
+message G2C_QueryProductInfoDataCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	repeated int64 ProductInfos = 2; //商品ID列表
+}
+
+message C2G_QueryProductInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductInfoID = 1; //商品id
+	int64 ShopInfoID = 2; //商铺ID
+}
+
+message G2C_QueryProductInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	int64 ShopInfoID = 2; //商铺id
+	int64 ProductID = 3; //物品id（暂时没用）
+	string ProductInfoName = 4; //商品名称
+	string ProductPublishGround = 5; //商品发布地
+	int32 ProductInfoSort = 6; //商品类别
+	float Price = 7; //价格
+	int32 Count = 8; //数量
+	repeated string Intrduce = 9; //商品描述
+	string ProductInfoHeadImage = 10; //商品头图
+	repeated string ProductInfoImages = 11; //商品图片集
+	repeated string PorductInfoTags = 12; //商品属性标签
+	repeated string DiscountsTags = 13; //优惠标签
+	repeated string PorductInfoDis = 14; //商品优惠
+	repeated int64 ServiceList = 15; //服务列表
+	repeated string AttributeBag = 16; //属性包
+	int32 ProductShopSort = 17; //商品商铺类别
+	int32 BayCounts = 18; //购买次数
+	int32 ViewCounts = 19; //浏览次数
+	int32 Thumbs = 20; //点赞数
+	repeated string PublicMessage = 21; //留言消息列表
+	string PublishTime = 22; //上架时间
+	int32 AuditState = 23; //审核状态
+	string AuditMessage = 24; //审核消息
+	int32 State = 25; //是否删除了
+	int32 Collects = 26; //收藏数
+	string UpdateTime = 27; //更新时间
+}
+
+message C2G_AddProductInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopInfoID = 1; //商铺id
+	int64 ProductID = 2; //物品id（暂时没用）
+	string ProductInfoName = 3; //商品名称
+	string ProductPublishGround = 4; //商品发布地
+	int32 ProductInfoSort = 5; //商品类别
+	float Price = 6; //价格
+	int32 Count = 7; //数量
+	repeated string Intrduce = 8; //商品描述
+	string ProductInfoHeadImage = 9; //商品头图
+	repeated string ProductInfoImages = 10; //商品图片集
+	repeated string PorductInfoTags = 11; //商品属性标签
+	repeated string DiscountsTags = 12; //优惠标签
+	repeated string PorductInfoDis = 13; //商品优惠
+	repeated int64 ServiceList = 14; //服务列表
+	repeated string AttributeBag = 15; //属性包
+	int32 ProductShopSort = 16; //商品商铺类别
+}
+
+message G2C_AddProductInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_DelProductInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductInfoID = 1; //商品id
+	int64 ShopInfoID = 2; //店铺id
+}
+
+message G2C_DelProductInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_UpdateProductInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductInfoID = 1; //商品id
+	string ProductInfoName = 2; //商品名称
+	string ProductPublishGround = 3; //商品发布地
+	int32 ProductInfoSort = 4; //商品类别
+	int32 ProductShopSort = 5; //商品商铺类别
+	float Price = 6; //价格
+	int32 Count = 7; //数量（库存）
+	repeated string Intrduce = 8; //商品描述
+	string ProductInfoHeadImage = 9; //商品头图
+	repeated string ProductInfoImages = 10; //商品图片集
+	repeated string PorductInfoTags = 11; //商品属性标签
+	repeated string DiscountsTags = 12; //优惠标签
+	repeated string PorductInfoDis = 13; //商品优惠
+	repeated int64 ServiceList = 14; //服务列表
+	repeated string AttributeBag = 15; //属性包
+	int64 ShopInfoID = 16; //商铺id
+
+}
+
+message G2C_UpdateProductInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_ViewProductInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductInfoID = 1; //商品id
+	int32 Type = 2; //1，添加浏览和足迹，2点赞，3收藏，4取消收藏，5删除足迹
+	int64 Userid = 3; //点赞用户
+	int64 ShopInfoID = 4; //商铺ID
+}
+
+message G2C_ViewProductInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_ProductInfoDataMessage // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductInfoID = 1; //商品id
+	int32 Type = 2; //1，留言，2评价
+	string PublicMessage = 3; //留言内容
+	string Evaluate = 4; //评价内容
+	int32 Score = 5; //评分
+	int64 ProductOrderID = 6; //订单id
+	int64 UserID = 7; //用户id
+	int64 ShopInfoID = 8; //商铺id
+}
+
+message G2C_ProductInfoDataMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_AuditProductInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductInfoID = 1; //商品id
+	int32 Type = 2; //1，审核通过，2审核失败
+	string AuditMessage = 3; //审核消息
+	int64 ShopInfoID = 4; //店铺id
+}
+
+message G2C_AuditProductInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryProductInfoOrderCount // IRequest
+{
+	int32 RpcId = 90;
+	
+	int32 Count = 1; //拿取多少个商品订单id
+	repeated int64 ProductInfos = 2; //已有商品订单id列表
+	int64 Userid = 3; //用户id
+}
+
+message G2C_QueryProductInfoOrderCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	repeated int64 ProductInfos = 2; //商品订单ID列表
+}
+
+message C2G_QueryProductInfoOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductOrderID = 1; //订单id
+	int64 UserID = 2; //用户ID
+}
+
+message G2C_QueryProductInfoOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	int64 ProductInfoID = 2; //商品id
+	int64 UserID = 3; //用户id
+	repeated string AttributeBag = 4; //购买属性包
+	int32 PayType = 5; //支付方式
+	float Price = 6; //支付价格
+	int32 Count = 7; //购买数量
+	string LogisticsNumber = 8; //物流编号
+	int32 PayState = 9; //支付状态
+	string CancelMessage = 10; //取消消息
+	string RecedeMessage = 11; //退款消息
+	int32 OrderSort = 12; //订单类别
+	string CreationTime = 13; //创建时间
+	string PaymentTime = 14; //付款时间
+	string SendProductTime = 15; //发货时间
+	string DeliveryTime = 16; //收货时间
+	string CancelTime = 17; //取消时间
+	string RecedeTime = 18; //退款时间
+	string RecedeOverTime = 19; //退款成功时间
+	repeated int64 ServiceList = 20; //服务列表
+	string OrderInfo = 21; //订单信息
+	string PayPlatformNumber = 22; //支付平台交易号
+	bool IsAppraise = 23; //支付平台交易号
+	int32 State = 24; //是否删除了
+}
+
+message C2G_AddProductOrderData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductInfoID = 1; //商品id
+	int64 UserID = 2; //用户id
+	repeated string AttributeBag = 3; //购买属性包
+	int32 Price = 4; //支付价格
+	int32 Count = 5; //购买数量
+	int32 OrderSort = 6; //订单类别
+	string CreationTime = 7; //创建时间
+	repeated int64 ServiceList = 8; //服务列表
+	string OrderInfo = 9; //订单信息
+	int64 SimpleOrderID = 10; //购物车id 购物车id为0则不删除购物车数据，如果不为0则删除购物车数据
+}
+
+message G2C_AddProductOrderData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_AuditProductOrderMessage // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductOrderID = 1; //订单id
+	int32 Type = 2; //1付款成功，2发货成功，3收货成功,4退款/售后，5退款成功，6取消订单
+	string LogisticsNumber = 3; //物流编号
+	int32 PayType = 4; //支付方式
+	string PayPlatformNumber = 5; //支付平台交易号
+	string RecedeMessage = 6; //退款消息
+	string CancelMessage = 7; //取消消息
+	int64 Userid = 8; //用户ID
+}
+
+message G2C_AuditProductOrderMessage // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_DelProductInfoOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductOrderID = 1; //订单id
+	int64 Userid = 2; //用户id
+}
+
+message G2C_DelProductInfoOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_QuerySimpleOrderCount // IRequest
+{
+	int32 RpcId = 90;
+	
+	int32 Count = 1; //拿取多少个购物车id
+	repeated int64 ProductInfos = 2; //已有购物车id列表
+	int64 Userid = 3; //用户id
+}
+
+message G2C_QuerySimpleOrderCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	repeated int64 ProductInfos = 2; //购物车ID列表
+}
+
+message C2G_QuerySimpleOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 SimpleOrderID = 1; //购物车id
+	int64 Userid = 2; //用户id
+}
+
+message G2C_QuerySimpleOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	int64 ProductInfoID = 2; //商品id
+	int64 UserID = 3; //用户id
+	repeated string AttributeBag = 4; //购买属性包
+	float Price = 5; //支付价格
+	int32 Count = 6; //购买数量
+	string UpdateTime = 7; //更新时间
+}
+
+message C2G_AddSimpleOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ProductInfoID = 1; //商品id
+	int64 UserID = 2; //用户id
+	repeated string AttributeBag = 3; //购买属性包
+	int32 Price = 4; //支付价格
+	int32 Count = 5; //购买数量
+}
+
+message G2C_AddSimpleOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_UpdateSimpleOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	repeated string AttributeBag = 1; //购买属性包
+	int32 Price = 2; //支付价格
+	int32 Count = 3; //购买数量
+	int64 OrderID = 4; //订单id
+	int64 UserID = 5; //用户id
+}
+
+message G2C_UpdateSimpleOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_DelSimpleOrder // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 OrderID = 1; //订单id
+	int64 UserID = 2; //用户id
+}
+
+message G2C_DelSimpleOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryServiceInfoCount // IRequest
+{
+	int32 RpcId = 90;
+	
+}
+
+message G2C_QueryServiceInfoCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	repeated int64 ServiceInfos = 2; //服务ID列表
+}
+
+message C2G_QueryServiceInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ServiceInfoID = 1; //服务ID
+}
+
+message G2C_QueryServiceInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	string ServiceInfoName = 2; //服务名称
+	string ServiceInfoContent = 3; //服务内容
+	int32 State = 4; //是否删除了
+}
+
+message C2G_AddServiceInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	string ServiceInfoName = 1; //服务名称
+	string ServiceInfoContent = 2; //服务内容
+}
+
+message G2C_AddServiceInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_UpdateServiceInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	string ServiceInfoName = 1; //服务名称
+	string ServiceInfoContent = 2; //服务内容
+	int64 ServiceInfoID = 3; //服务ID
+}
+
+message G2C_UpdateServiceInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_DelServiceInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ServiceInfoID = 1; //服务ID
+}
+
+message G2C_DelServiceInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryShopInfoDataCount // IRequest
+{
+	int32 RpcId = 90;
+	
+	int32 Count = 1; //拿取多少个商铺id
+	repeated int64 ShopInfos = 2; //已有商铺id列表
+	string QueryConntent = 3; //查询内容
+	int32 QueryType = 4; //查询类型 1，正则店铺名字查询
+}
+
+message G2C_QueryShopInfoDataCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	repeated int64 ShopInfos = 2; //商铺ID列表
+}
+
+message C2G_QueryShopInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopInfoID = 1; //店铺id
+}
+
+message G2C_QueryShopInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	int64 UserID = 2; //店主id
+	string ShopName = 3; //店铺名称
+	string ShopPublishGround = 4; //店铺发布地
+	repeated string Intrduce = 5; //商铺描述
+	int32 ShopType = 6; //店铺类型
+	string ShopInfoHeadImage = 7; //店铺头图
+	repeated string ShopInfoImages = 8; //店铺图片集
+	bool IsAuthentication = 9; //认证
+	int32 ShopLevel = 10; //商铺等级
+	float ShopBailMoney = 11; //商铺保证金
+	float PayShopBailMoney = 12; //需支付的商铺保证金
+	repeated int64 ProductInfos = 13; //店铺商品列表id
+	repeated string ShopSorts = 14; //店铺内部类别
+	repeated int64 ShopUserVIP = 15; //商铺会员列表id
+	repeated int64 ShopActivity = 16; //商铺活动列表
+	string ShopTime = 17; //商铺成立时间
+	int32 AuditState = 18; //审核状态
+	string AuditMessage = 19; //审核消息
+	int32 State = 20; //是否删除了
+}
+
+message C2G_AddShopInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	repeated string Intrduce = 1; //商铺描述
+	string ShopInfoHeadImage = 2; //商品头图
+	repeated string ShopInfoImages = 3; //商品图片集
+	bool IsAuthentication = 4; //认证
+	string ShopName = 5; //店铺名称
+	string ShopPublishGround = 6; //店铺发布地
+	int64 UserID = 7; //房主ID
+	int64 ShopInfoID = 8; //店铺ID 如果不为0就说明是重新审核
+}
+
+message G2C_AddShopInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_DelShopInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopInfoID = 1; //商铺ID
+	int64 UserID = 2; //用户ID
+}
+
+message G2C_DelShopInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_UpdateShopInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopInfoID = 1; //店铺id
+	string ShopName = 2; //店铺名称
+	string ShopPublishGround = 3; //店铺发布地
+	int32 ShopType = 4; //店铺类别
+	string ShopInfoHeadImage = 5; //店铺头图
+	string ShopInfoImage = 6; //店铺图片集
+	repeated string Intrduce = 7; //店铺描述
+	string ShopSort = 8; //店铺内部类别
+	int32 ShopSortType = 9; //1，添加店铺内部类别，2，删除店铺内部类别
+	int32 ShopImageType = 10; //1，添加图片，2删除图片
+}
+
+message G2C_UpdateShopInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_SUpdateShopInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopInfoID = 1; //店铺id
+	int32 ShopLevel = 2; //店铺等级
+	float PayShopBailMoney = 3; //需支付的店铺保证金
+}
+
+message G2C_SUpdateShopInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_AuditShopInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopInfoID = 1; //店铺id
+	int32 Type = 2; //1，审核通过，2审核失败
+	string AuditMessage = 3; //审核消息
+	float PayShopBailMoney = 4; //需店铺保证金
+
+}
+
+message C2G_ViewShopInfoData // IRequest
+{
+	int32 RpcId = 90;
+
+	int32 Type = 1; //1收藏，2取消收藏
+	int64 Userid = 2; //收藏用户
+	int64 ShopInfoID = 3; //商铺ID
+}
+
+message G2C_ViewShopInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message G2C_AuditShopInfoData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_AddShopUserVIP // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopInfoID = 1; //店铺id
+	int64 UserID = 2; //会员ID
+	int32 Type = 3; //1，添加会员，2删除会员
+
+}
+
+message G2C_AddShopUserVIP // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryShopActivityInfoCount // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 ShopInfoID = 1; //店铺id
+}
+
+message G2C_QueryShopActivityInfoCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	repeated int64 ShopActivitys = 2; //店铺活动ID列表
+}
+
+message C2G_QueryShopActivityInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopActivityID = 1; //订单id
+	int64 ShopInfoID = 2; //店铺id
+}
+
+message G2C_QueryShopActivityInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	int64 ShopInfoID = 2; //商铺id
+	int32 DiscountsSort = 3; //优惠类别
+	string DiscountsSortFields = 4; //优惠字段
+	repeated string Intrduce = 5; //优惠描述
+	repeated int64 DisProducts = 6; //优惠商品
+	int32 Count = 7; //优惠数量
+	string StartTime = 8; //优惠开始时间
+	string EndTime = 9; //优惠结束时间
+	string DiscountsAlert = 10; //优惠提醒
+	int32 AuditState = 11; //审核状态
+	string AuditMessage = 12; //审核消息
+	int32 State = 13; //是否删除了
+}
+
+message C2G_AddShopActivityInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopInfoID = 1; //店铺id
+	int32 DiscountsSort = 2; //优惠类别
+	string DiscountsSortFields = 3; //优惠字段
+	repeated string Intrduce = 4; //优惠描述
+	int32 Count = 5; //优惠数量
+	string StartTime = 6; //优惠开始时间
+	string EndTime = 7; //优惠结束时间
+	string DiscountsAlert = 8; //优惠提醒
+	repeated int64 DisProducts = 9; //优惠商品
+}
+
+message G2C_AddShopActivityInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_UpdateShopActivityInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopActivityID = 1; //店铺活动id
+	int32 DiscountsSort = 2; //优惠类别
+	string DiscountsSortFields = 3; //优惠字段
+	repeated string Intrduce = 4; //优惠描述
+	int32 Count = 5; //优惠数量
+	string StartTime = 6; //优惠开始时间
+	string EndTime = 7; //优惠结束时间
+	string DiscountsAlert = 8; //优惠提醒
+	int64 DisProduct = 9; //优惠商品
+	int32 DisProductType = 10; //1,添加商品，2删除商品
+	int64 ShopInfoID = 11; //店铺id
+}
+
+message G2C_UpdateShopActivityInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_DelShopActivityInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopActivityID = 1; //商铺活动ID
+	int64 ShopInfoID = 2; //商铺ID
+}
+
+message G2C_DelShopActivityInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_AuditShopActivityInfo // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 ShopActivityID = 1; //店铺活动id
+	int32 Type = 2; //1，审核通过，2审核失败
+	string AuditMessage = 3; //审核消息
+	int64 ShopInfoID = 4; //店铺id
+}
+
+message G2C_AuditShopActivityInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_DelUserShoppingData // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 UserID = 1; //用户ID
+	int64 OrderID = 2; //订单ID
+}
+
+message G2C_DelUserShoppingData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+}
+
+message C2G_QueryMyProductInfoDataCount // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 UserID = 1; //用户ID
+	int32 Count = 2; //拿去个数
+	repeated int64 ProductInfos = 3; //已拿去的商品id列表
+}
+
+message G2C_QueryMyProductInfoDataCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	repeated int64 ProductInfos = 2; //商品id列表
+}
+
+message C2G_QueryMyShopInfoDataCount // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 UserID = 1; //用户ID
+	int32 Count = 2; //拿去个数
+	repeated int64 ShopInfos = 3; //已有商铺id列表
+}
+
+message G2C_QueryMyShopInfoDataCount // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	bool IsSuccess = 1;
+	repeated int64 ShopInfos = 2; //商铺id列表
+}

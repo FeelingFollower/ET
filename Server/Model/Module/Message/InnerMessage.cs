@@ -378,4 +378,54 @@ namespace ETModel
 
 	}
 
+	[Message(InnerOpcode.DBQueryLSSJsonRequest)]
+	public partial class DBQueryLSSJsonRequest: IRequest
+	{
+		public int RpcId { get; set; }
+
+		public string CollectionName { get; set; }
+
+		public string Json { get; set; }
+
+		public string LSS { get; set; }
+
+	}
+
+	[Message(InnerOpcode.DBQueryLSSJsonResponse)]
+	public partial class DBQueryLSSJsonResponse: IResponse
+	{
+		public int RpcId { get; set; }
+
+		public int Error { get; set; }
+
+		public string Message { get; set; }
+
+		public List<ComponentWithId> Components = new List<ComponentWithId>();
+
+	}
+
+	[Message(InnerOpcode.DBQueryCountJsonRequest)]
+	public partial class DBQueryCountJsonRequest: IRequest
+	{
+		public int RpcId { get; set; }
+
+		public string CollectionName { get; set; }
+
+		public string Json { get; set; }
+
+	}
+
+	[Message(InnerOpcode.DBQueryCountJsonResponse)]
+	public partial class DBQueryCountJsonResponse: IResponse
+	{
+		public int RpcId { get; set; }
+
+		public int Error { get; set; }
+
+		public string Message { get; set; }
+
+		public long Components { get; set; }
+
+	}
+
 }

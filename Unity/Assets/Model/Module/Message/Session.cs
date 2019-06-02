@@ -147,7 +147,7 @@ namespace ETModel
 				
 				if (OpcodeHelper.IsNeedDebugLogMessage(opcode))
 				{
-					Log.Msg(message);
+					//Log.Msg(message);
 				}
 			}
 			catch (Exception e)
@@ -265,7 +265,7 @@ namespace ETModel
 				else
 #endif
 				{
-					Log.Msg(message);
+					//Log.Msg(message);
 				}
 			}
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using ETModel;
 
 namespace ETHotfix
@@ -15,7 +16,7 @@ namespace ETHotfix
 				if (account == null)
 				{
 					response.Error = ErrorCode.ERR_ConnectGateKeyError;
-					response.Message = "Gate key验证失败!";
+					response.Message = MethodBase.GetCurrentMethod().DeclaringType.FullName + "." + MethodBase.GetCurrentMethod().Name + "Gate key验证失败!";
 					reply(response);
 					return;
 				}

@@ -90,12 +90,12 @@ namespace App
 						
 						// 发送location actor消息
 						Game.Scene.AddComponent<ActorLocationSenderComponent>();
-						
-						//Game.Scene.AddComponent<DBComponent>();
-						//Game.Scene.AddComponent<DBProxyComponent>();
-						
-						// location server需要的组件
-						Game.Scene.AddComponent<LocationComponent>();
+
+                        Game.Scene.AddComponent<DBComponent>();
+                        Game.Scene.AddComponent<DBProxyComponent>();
+
+                        // location server需要的组件
+                        Game.Scene.AddComponent<LocationComponent>();
 						
 						// 访问location server的组件
 						Game.Scene.AddComponent<LocationProxyComponent>();
@@ -125,8 +125,10 @@ namespace App
 						Game.Scene.AddComponent<UnitComponent>();
 
 						Game.Scene.AddComponent<ConsoleComponent>();
-						// Game.Scene.AddComponent<HttpComponent>();
-						break;
+                        Game.Scene.AddComponent<LifeOfAllMyComponent>();
+
+                        // Game.Scene.AddComponent<HttpComponent>();
+                        break;
 					case AppType.Benchmark:
 						Game.Scene.AddComponent<NetOuterComponent>();
 						Game.Scene.AddComponent<BenchmarkComponent, string>(clientConfig.Address);
