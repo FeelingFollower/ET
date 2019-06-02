@@ -35,24 +35,20 @@ namespace ETHotfix
                 {
                     foreach (CollectProduct item in acountsInfo)
                     {
-                        if (item._State == 0)
+                        if (ProductInfoids.Contains(item._CollectProductID))
                         {
-                            if (ProductInfoids.Contains(item._CollectProductID))
-                            {
-                                continue;
-                            }
-                            if (ProductInfoids.Count > message.Count)
-                            {
-                                break;
-                            }
-                            ProductInfoids.Add(item._CollectProductID);
+                            continue;
                         }
+                        if (ProductInfoids.Count > message.Count)
+                        {
+                            break;
+                        }
+                        ProductInfoids.Add(item._CollectProductID);
                     }
+                    response.IsSuccess = true;
+                    response.ProductInfos = RepeatedFieldAndListChangeTool.ListToRepeatedField(ProductInfoids);
+                    response.Message = "商品id列表获取成功";
                 }
-
-                response.IsSuccess = true;
-                response.ProductInfos = RepeatedFieldAndListChangeTool.ListToRepeatedField(ProductInfoids);
-                response.Message = "商品id列表获取成功";
 
                 reply(response);
             }
@@ -104,10 +100,10 @@ namespace ETHotfix
                 }
                 else if (message.QueryType == 2)
                 {
-                    var acountscount = await dBProxyComponent.QueryCount<ProductInfoData>("{_ProductInfoName:/^" + message.QueryConntent + "/}");
+                    var acountscount = await dBProxyComponent.QueryCount<ProductInfoData>("{_ProductInfoName:/" + message.QueryConntent + "/}");
                     while (skip < acountscount)
                     {
-                        string Json = "{_ProductInfoName:/^" + message.QueryConntent + "/}";//查找类型里面可以添加斜杠来做匹配查找，例如：{userNowArea:/^湖南省/}
+                        string Json = "{_ProductInfoName:/" + message.QueryConntent + "/}";//查找类型里面可以添加斜杠来做匹配查找，例如：{userNowArea:/^湖南省/}
                         string sort = "{ }";//排序方式，必须要有参数和排序方式，例如：{userID:1}
                         string LSS = Json + "|" + skip + "|" + limit + "|" + sort;
                         var acounts = await dBProxyComponent.QueryLss<ProductInfoData>(LSS);
@@ -396,7 +392,7 @@ namespace ETHotfix
                     InfoData._State = 1;
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "商品删除成功！";
@@ -477,10 +473,6 @@ namespace ETHotfix
                     {
                         InfoData._ProductShopSort = message.ProductShopSort;
                     }
-                    if (message.ProductShopSort != 0)
-                    {
-                        InfoData._ProductShopSort = message.ProductShopSort;
-                    }
                     if (message.Price != 0)
                     {
                         InfoData._Price = message.Price;
@@ -524,7 +516,7 @@ namespace ETHotfix
                     InfoData._UpdateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "商品修改成功！";
@@ -595,14 +587,17 @@ namespace ETHotfix
                         Footmark footmark = null;
                         lock (Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist)
                         {
-                            List<Footmark> datalist = new List<Footmark>();
-                            datalist = Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist[message.Userid];
-                            foreach (Footmark item in datalist)
+                            if (Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist.ContainsKey(message.Userid))
                             {
-                                if (item._FootmarkID == InfoData._ProductInfoID)
+                                List<Footmark> datalist = new List<Footmark>();
+                                datalist = Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist[message.Userid];
+                                foreach (Footmark item in datalist)
                                 {
-                                    footmark = item;
-                                    break;
+                                    if (item._FootmarkID == InfoData._ProductInfoID)
+                                    {
+                                        footmark = item;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -611,7 +606,7 @@ namespace ETHotfix
                         {
                             footmark._FootmarkTime = DateTime.Now.ToString("yyyy-MM-dd 00:00:00");
                             await dBProxyComponent.Save(footmark);
-                            await dBProxyComponent.SaveLog(footmark);
+                            dBProxyComponent.SaveLog(footmark).Coroutine();
                         }
                         else
                         {
@@ -623,7 +618,7 @@ namespace ETHotfix
                             infodata._State = 0;
 
                             await dBProxyComponent.Save(infodata);
-                            await dBProxyComponent.SaveLog(infodata);
+                            dBProxyComponent.SaveLog(infodata).Coroutine();
 
                             //添加缓存
                             lock (Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist)
@@ -679,7 +674,7 @@ namespace ETHotfix
                             infodata._State = 0;
 
                             await dBProxyComponent.Save(infodata);
-                            await dBProxyComponent.SaveLog(infodata);
+                            dBProxyComponent.SaveLog(infodata).Coroutine();
 
                             //添加缓存
                             lock (Game.Scene.GetComponent<ProductCenterComponent>().ThumbUserlist)
@@ -717,7 +712,7 @@ namespace ETHotfix
                         infodata._State = 0;
 
                         await dBProxyComponent.Save(infodata);
-                        await dBProxyComponent.SaveLog(infodata);
+                        dBProxyComponent.SaveLog(infodata).Coroutine();
 
                         //添加缓存
                         lock (Game.Scene.GetComponent<ProductCenterComponent>().UserCollectProductlist)
@@ -768,7 +763,7 @@ namespace ETHotfix
                             collectProduct._State = 1;
 
                             await dBProxyComponent.Save(collectProduct);
-                            await dBProxyComponent.SaveLog(collectProduct);
+                            dBProxyComponent.SaveLog(collectProduct).Coroutine();
                             Game.Scene.GetComponent<ProductCenterComponent>().UserCollectProductlist[message.Userid].Remove(collectProduct);
 
                             response.IsSuccess = true;
@@ -787,15 +782,15 @@ namespace ETHotfix
 
                         lock (Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist)
                         {
-                            if (Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist.ContainsKey(message.ProductInfoID))
+                            if (Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist.ContainsKey(message.Userid))
                             {
-                                ProductCollectUserid = Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist[message.ProductInfoID];
+                                ProductCollectUserid = Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist[message.Userid];
                             }
                             if (ProductCollectUserid.Count > 0)
                             {
                                 foreach (Footmark item in ProductCollectUserid)
                                 {
-                                    if (item._UserID == message.Userid)
+                                    if (item._FootmarkID == message.ProductInfoID)
                                     {
                                         footmark = item;
                                         break;
@@ -808,8 +803,8 @@ namespace ETHotfix
                             footmark._State = 1;
 
                             await dBProxyComponent.Save(footmark);
-                            await dBProxyComponent.SaveLog(footmark);
-                            Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist[InfoData._ProductInfoID].Remove(footmark);
+                            dBProxyComponent.SaveLog(footmark).Coroutine();
+                            Game.Scene.GetComponent<ProductCenterComponent>().UserFootmarklist[message.Userid].Remove(footmark);
 
                             response.IsSuccess = true;
                             response.Message = "删除足迹成功！";
@@ -822,7 +817,7 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                 }
 
@@ -902,13 +897,16 @@ namespace ETHotfix
                         lock (Game.Scene.GetComponent<ProductCenterComponent>().ProductEvaluatelist)
                         {
                             List<EvaluateProduct> datalist = new List<EvaluateProduct>();
-                            datalist = Game.Scene.GetComponent<ProductCenterComponent>().ProductEvaluatelist[InfoData._ProductInfoID];
-                            foreach (EvaluateProduct item in datalist)
+                            if (Game.Scene.GetComponent<ProductCenterComponent>().ProductEvaluatelist.ContainsKey(InfoData._ProductInfoID))
                             {
-                                if (item._UserID == message.UserID)
+                                datalist = Game.Scene.GetComponent<ProductCenterComponent>().ProductEvaluatelist[InfoData._ProductInfoID];
+                                foreach (EvaluateProduct item in datalist)
                                 {
-                                    evaluateProduct = item;
-                                    break;
+                                    if (item._UserID == message.UserID)
+                                    {
+                                        evaluateProduct = item;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -924,7 +922,7 @@ namespace ETHotfix
                             infodata._State = 0;
 
                             await dBProxyComponent.Save(infodata);
-                            await dBProxyComponent.SaveLog(infodata);
+                            dBProxyComponent.SaveLog(infodata).Coroutine();
 
                             //添加缓存
                             lock (Game.Scene.GetComponent<ProductCenterComponent>().ProductEvaluatelist)
@@ -964,7 +962,7 @@ namespace ETHotfix
                                 OrderData._IsAppraise = true;
 
                                 await dBProxyComponent.Save(OrderData);
-                                await dBProxyComponent.SaveLog(OrderData);
+                                dBProxyComponent.SaveLog(OrderData).Coroutine();
                             }
 
                             //TODO 通知卖家某某订单的买家已经评价了
@@ -1013,7 +1011,7 @@ namespace ETHotfix
                     //}
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                 }
 
@@ -1081,6 +1079,9 @@ namespace ETHotfix
                         InfoData._AuditMessage = message.AuditMessage;
                         InfoData._PublishTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         InfoData._UpdateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                        response.IsSuccess = true;
+                        response.Message = "审核修改成功，修改状态通过！";
                     }
                     else if (message.Type == 2)
                     {
@@ -1092,8 +1093,12 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
-
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "审核修改失败，未找到表！";
                 }
 
                 reply(response);
@@ -1286,7 +1291,7 @@ namespace ETHotfix
                 response.Message = "购买商品，生成订单成功！";
 
                 await dBProxyComponent.Save(Orderdata);
-                await dBProxyComponent.SaveLog(Orderdata);
+                dBProxyComponent.SaveLog(Orderdata).Coroutine();
 
                 //添加缓存个人商品订单缓存
                 lock (Game.Scene.GetComponent<ProductCenterComponent>().UserProductOrderlist)
@@ -1330,7 +1335,7 @@ namespace ETHotfix
                         OrderData._State = 1;
 
                         await dBProxyComponent.Save(OrderData);
-                        await dBProxyComponent.SaveLog(OrderData);
+                        dBProxyComponent.SaveLog(OrderData).Coroutine();
                     }
                 }
 
@@ -1434,7 +1439,7 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(OrderData);
-                    await dBProxyComponent.SaveLog(OrderData);
+                    dBProxyComponent.SaveLog(OrderData).Coroutine();
 
                 }
 
@@ -1486,7 +1491,7 @@ namespace ETHotfix
                     OrderData._State = 1;
 
                     await dBProxyComponent.Save(OrderData);
-                    await dBProxyComponent.SaveLog(OrderData);
+                    dBProxyComponent.SaveLog(OrderData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "订单删除成功！";
@@ -1648,7 +1653,7 @@ namespace ETHotfix
                 response.Message = "添加购物车成功！";
 
                 await dBProxyComponent.Save(Orderdata);
-                await dBProxyComponent.SaveLog(Orderdata);
+                dBProxyComponent.SaveLog(Orderdata).Coroutine();
 
                 //添加缓存个人购物车缓存
                 lock (Game.Scene.GetComponent<ProductCenterComponent>().UserSimpleOrderlist)
@@ -1727,7 +1732,7 @@ namespace ETHotfix
                     OrderData._UpdateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                     await dBProxyComponent.Save(OrderData);
-                    await dBProxyComponent.SaveLog(OrderData);
+                    dBProxyComponent.SaveLog(OrderData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "购物车订单修改成功！";
@@ -1799,7 +1804,7 @@ namespace ETHotfix
                         OrderData._State = 1;
 
                         await dBProxyComponent.Save(OrderData);
-                        await dBProxyComponent.SaveLog(OrderData);
+                        dBProxyComponent.SaveLog(OrderData).Coroutine();
 
                         response.IsSuccess = true;
                         response.Message = "购物车订单删除成功！";
@@ -1919,7 +1924,7 @@ namespace ETHotfix
                 response.Message = "添加服务成功！";
 
                 await dBProxyComponent.Save(Infodata);
-                await dBProxyComponent.SaveLog(Infodata);
+                dBProxyComponent.SaveLog(Infodata).Coroutine();
 
 
                 //添加缓存
@@ -1972,7 +1977,7 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "服务信息修改成功！";
@@ -2012,7 +2017,7 @@ namespace ETHotfix
                     InfoData._State = 1;
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "服务信息删除成功！";
@@ -2109,10 +2114,11 @@ namespace ETHotfix
                 DBProxyComponent dBProxyComponent = Game.Scene.GetComponent<DBProxyComponent>();
                 if (message.QueryType == 1)
                 {
-                    var acountscount = await dBProxyComponent.QueryCount<ShopInfoData>("{_ShopName:/^" + message.QueryConntent + "/}");
+                    var acountscount = await dBProxyComponent.QueryCount<ShopInfoData>("{_ShopName:/" + message.QueryConntent + "/}");
+                    Log.Debug(MethodBase.GetCurrentMethod().DeclaringType.FullName + "." + MethodBase.GetCurrentMethod().Name + acountscount.ToString());
                     while (skip < acountscount)
                     {
-                        string Json = "{_ShopName:/^" + message.QueryConntent + "/}";//查找类型里面可以添加斜杠来做匹配查找，例如：{userNowArea:/^湖南省/}
+                        string Json = "{_ShopName:/" + message.QueryConntent + "/}";//查找类型里面可以添加斜杠来做匹配查找，例如：{userNowArea:/^湖南省/}
                         string sort = "{ }";//排序方式，必须要有参数和排序方式，例如：{userID:1}
                         string LSS = Json + "|" + skip + "|" + limit + "|" + sort;
                         var acounts = await dBProxyComponent.QueryLss<ShopInfoData>(LSS);
@@ -2216,7 +2222,7 @@ namespace ETHotfix
     }
 
     /// <summary>
-    /// 添加店铺
+    /// 添加店铺  //TODO 商铺名称不能一样，否则创建失败    或者设置一个查询商铺名称的方法，返回true或者false
     /// </summary>
     [MessageHandler(AppType.Gate)]
     public class C2G_AddShopInfoDataHandler : AMRpcHandler<C2G_AddShopInfoData, G2C_AddShopInfoData>
@@ -2264,7 +2270,7 @@ namespace ETHotfix
                     response.Message = "重新申请店铺成功，等待审核！";
 
                     await dBProxyComponent.Save(shopInfoData);
-                    await dBProxyComponent.SaveLog(shopInfoData);
+                    dBProxyComponent.SaveLog(shopInfoData).Coroutine();
                 }
                 else
                 {
@@ -2293,7 +2299,7 @@ namespace ETHotfix
                     response.Message = "申请店铺成功，等待审核！";
 
                     await dBProxyComponent.Save(infodata);
-                    await dBProxyComponent.SaveLog(infodata);
+                    dBProxyComponent.SaveLog(infodata).Coroutine();
 
                     //添加缓存
                     lock (Game.Scene.GetComponent<ProductCenterComponent>().ShopInfolist)
@@ -2341,7 +2347,7 @@ namespace ETHotfix
                     InfoData._State = 1;
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "店铺删除成功！";
@@ -2363,7 +2369,7 @@ namespace ETHotfix
                         item._State = 1;
 
                         await dBProxyComponent.Save(item);
-                        await dBProxyComponent.SaveLog(item);
+                        dBProxyComponent.SaveLog(item).Coroutine();
                     }
 
                     //清空店铺活动
@@ -2380,7 +2386,7 @@ namespace ETHotfix
                         item._State = 1;
 
                         await dBProxyComponent.Save(item);
-                        await dBProxyComponent.SaveLog(item);
+                        dBProxyComponent.SaveLog(item).Coroutine();
                     }
 
                     //清空店铺收藏
@@ -2397,7 +2403,7 @@ namespace ETHotfix
                         item._State = 1;
 
                         await dBProxyComponent.Save(item);
-                        await dBProxyComponent.SaveLog(item);
+                        dBProxyComponent.SaveLog(item).Coroutine();
                     }
                 }
 
@@ -2481,10 +2487,15 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "店铺修改成功！";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "店铺修改失败，没有找到店铺表！";
                 }
 
                 reply(response);
@@ -2533,7 +2544,7 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
                     response.Message = "客服修改店铺信息修改成功！";
@@ -2579,7 +2590,10 @@ namespace ETHotfix
                     {
                         InfoData._AuditState = 1;
                         InfoData._AuditMessage = message.AuditMessage;
-                        InfoData._ShopTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        if (InfoData._ShopTime == "")
+                        {
+                            InfoData._ShopTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        }
                         InfoData._PayShopBailMoney = message.PayShopBailMoney;
 
                         response.IsSuccess = true;
@@ -2596,7 +2610,7 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                 }
 
@@ -2634,7 +2648,7 @@ namespace ETHotfix
                     infodata._State = 0;
 
                     await dBProxyComponent.Save(infodata);
-                    await dBProxyComponent.SaveLog(infodata);
+                    dBProxyComponent.SaveLog(infodata).Coroutine();
 
                     if (Game.Scene.GetComponent<ProductCenterComponent>().UserCollecShoptlist.ContainsKey(message.Userid))
                     {
@@ -2648,6 +2662,9 @@ namespace ETHotfix
                         if (Game.Scene.GetComponent<ProductCenterComponent>().UserCollecShoptlist.TryAdd(message.Userid, datalist) == true) { };
                         Game.Scene.GetComponent<ProductCenterComponent>().UserCollecShoptlist[message.Userid].Add(infodata);
                     }
+
+                    response.IsSuccess = true;
+                    response.Message = "收藏成功！";
                 }
                 else if (message.Type == 2)
                 {
@@ -2679,7 +2696,7 @@ namespace ETHotfix
                         collectShopInfo._State = 1;
 
                         await dBProxyComponent.Save(collectShopInfo);
-                        await dBProxyComponent.SaveLog(collectShopInfo);
+                        dBProxyComponent.SaveLog(collectShopInfo).Coroutine();
                         Game.Scene.GetComponent<ProductCenterComponent>().UserCollecShoptlist[message.Userid].Remove(collectShopInfo);
 
                         response.IsSuccess = true;
@@ -2740,7 +2757,7 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                 }
 
@@ -2785,11 +2802,11 @@ namespace ETHotfix
                 {
                     foreach (ShopActivityInfo item in acountsInfo)
                     {
-                        if (ProductInfoids.Contains(item._ShopInfoID))
+                        if (ProductInfoids.Contains(item._ShopActivityID))
                         {
                             continue;
                         }
-                        ProductInfoids.Add(item._ShopInfoID);
+                        ProductInfoids.Add(item._ShopActivityID);
                     }
                     response.IsSuccess = true;
                     response.ShopActivitys = RepeatedFieldAndListChangeTool.ListToRepeatedField(ProductInfoids);
@@ -2905,25 +2922,25 @@ namespace ETHotfix
                 Infodata._State = 0;
 
                 response.IsSuccess = true;
-                response.Message = "添加店铺活动成功！";
+                response.Message = "添加店铺活动成功！,等待审核！";
 
                 await dBProxyComponent.Save(Infodata);
-                await dBProxyComponent.SaveLog(Infodata);
+                dBProxyComponent.SaveLog(Infodata).Coroutine();
 
                 //添加缓存商铺活动缓存
                 lock (Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist)
                 {
                     List<ShopActivityInfo> datalist = new List<ShopActivityInfo>();
-                    if (Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist.ContainsKey(Infodata._ShopActivityID))
+                    if (Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist.ContainsKey(Infodata._ShopInfoID))
                     {
                         //有这个商铺直接往这个商铺的list里添加
-                        Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist[Infodata._ShopActivityID].Add(Infodata);
+                        Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist[Infodata._ShopInfoID].Add(Infodata);
                     }
                     else
                     {
                         //没有这个商铺，添加这个商铺，在往商铺里面的list里添加
-                        if (Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist.TryAdd(Infodata._ShopActivityID, datalist) == true) { };
-                        Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist[Infodata._ShopActivityID].Add(Infodata);
+                        if (Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist.TryAdd(Infodata._ShopInfoID, datalist) == true) { };
+                        Game.Scene.GetComponent<ProductCenterComponent>().ShopActivitylist[Infodata._ShopInfoID].Add(Infodata);
                     }
                 }
 
@@ -3013,10 +3030,10 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
-                    response.Message = "服务信息修改成功！";
+                    response.Message = "店铺活动信息修改成功！";
                 }
 
                 reply(response);
@@ -3067,10 +3084,10 @@ namespace ETHotfix
                     InfoData._State = 1;
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                     response.IsSuccess = true;
-                    response.Message = "服务信息删除成功！";
+                    response.Message = "店铺活动信息删除成功！";
                 }
 
                 reply(response);
@@ -3137,7 +3154,7 @@ namespace ETHotfix
                     }
 
                     await dBProxyComponent.Save(InfoData);
-                    await dBProxyComponent.SaveLog(InfoData);
+                    dBProxyComponent.SaveLog(InfoData).Coroutine();
 
                 }
 

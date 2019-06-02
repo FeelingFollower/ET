@@ -2117,13 +2117,12 @@ message C2G_AddProductOrderData // IRequest
 	int64 ProductInfoID = 1; //商品id
 	int64 UserID = 2; //用户id
 	repeated string AttributeBag = 3; //购买属性包
-	int32 Price = 4; //支付价格
+	float Price = 4; //支付价格
 	int32 Count = 5; //购买数量
 	int32 OrderSort = 6; //订单类别
-	string CreationTime = 7; //创建时间
-	repeated int64 ServiceList = 8; //服务列表
-	string OrderInfo = 9; //订单信息
-	int64 SimpleOrderID = 10; //购物车id 购物车id为0则不删除购物车数据，如果不为0则删除购物车数据
+	repeated int64 ServiceList = 7; //服务列表
+	string OrderInfo = 8; //订单信息
+	int64 SimpleOrderID = 9; //购物车id 购物车id为0则不删除购物车数据，如果不为0则删除购物车数据
 }
 
 message G2C_AddProductOrderData // IResponse
@@ -2224,7 +2223,7 @@ message C2G_AddSimpleOrder // IRequest
 	int64 ProductInfoID = 1; //商品id
 	int64 UserID = 2; //用户id
 	repeated string AttributeBag = 3; //购买属性包
-	int32 Price = 4; //支付价格
+	float Price = 4; //支付价格
 	int32 Count = 5; //购买数量
 }
 
@@ -2242,7 +2241,7 @@ message C2G_UpdateSimpleOrder // IRequest
 	int32 RpcId = 90;
 
 	repeated string AttributeBag = 1; //购买属性包
-	int32 Price = 2; //支付价格
+	float Price = 2; //支付价格
 	int32 Count = 3; //购买数量
 	int64 OrderID = 4; //订单id
 	int64 UserID = 5; //用户id
@@ -2576,7 +2575,7 @@ message C2G_QueryShopActivityInfo // IRequest
 {
 	int32 RpcId = 90;
 
-	int64 ShopActivityID = 1; //订单id
+	int64 ShopActivityID = 1; //商铺活动ID
 	int64 ShopInfoID = 2; //店铺id
 }
 

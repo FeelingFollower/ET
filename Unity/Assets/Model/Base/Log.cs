@@ -11,7 +11,7 @@ namespace ETModel
 		
 		public static void Debug(string msg)
 		{
-            UnityEngine.Debug.Log(msg);
+            //UnityEngine.Debug.Log(msg);
         }
 		
 		public static void Info(string msg)

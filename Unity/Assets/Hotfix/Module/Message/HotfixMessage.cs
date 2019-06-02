@@ -28680,11 +28680,11 @@ namespace ETHotfix {
       set { attributeBag_ = value; }
     }
 
-    private int price_;
+    private float price_;
     /// <summary>
     ///支付价格
     /// </summary>
-    public int Price {
+    public float Price {
       get { return price_; }
       set {
         price_ = value;
@@ -28713,19 +28713,8 @@ namespace ETHotfix {
       }
     }
 
-    private string creationTime_ = "";
-    /// <summary>
-    ///创建时间
-    /// </summary>
-    public string CreationTime {
-      get { return creationTime_; }
-      set {
-        creationTime_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     private static readonly pb::FieldCodec<long> _repeated_serviceList_codec
-        = pb::FieldCodec.ForInt64(66);
+        = pb::FieldCodec.ForInt64(58);
     private pbc::RepeatedField<long> serviceList_ = new pbc::RepeatedField<long>();
     /// <summary>
     ///服务列表
@@ -28767,9 +28756,9 @@ namespace ETHotfix {
         output.WriteInt64(UserID);
       }
       attributeBag_.WriteTo(output, _repeated_attributeBag_codec);
-      if (Price != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(Price);
+      if (Price != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Price);
       }
       if (Count != 0) {
         output.WriteRawTag(40);
@@ -28779,17 +28768,13 @@ namespace ETHotfix {
         output.WriteRawTag(48);
         output.WriteInt32(OrderSort);
       }
-      if (CreationTime.Length != 0) {
-        output.WriteRawTag(58);
-        output.WriteString(CreationTime);
-      }
       serviceList_.WriteTo(output, _repeated_serviceList_codec);
       if (OrderInfo.Length != 0) {
-        output.WriteRawTag(74);
+        output.WriteRawTag(66);
         output.WriteString(OrderInfo);
       }
       if (SimpleOrderID != 0L) {
-        output.WriteRawTag(80);
+        output.WriteRawTag(72);
         output.WriteInt64(SimpleOrderID);
       }
       if (RpcId != 0) {
@@ -28810,17 +28795,14 @@ namespace ETHotfix {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserID);
       }
       size += attributeBag_.CalculateSize(_repeated_attributeBag_codec);
-      if (Price != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Price);
+      if (Price != 0F) {
+        size += 1 + 4;
       }
       if (Count != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Count);
       }
       if (OrderSort != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(OrderSort);
-      }
-      if (CreationTime.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(CreationTime);
       }
       size += serviceList_.CalculateSize(_repeated_serviceList_codec);
       if (OrderInfo.Length != 0) {
@@ -28836,10 +28818,9 @@ namespace ETHotfix {
       productInfoID_ = 0;
       userID_ = 0;
       attributeBag_.Clear();
-      price_ = 0;
+      price_ = 0f;
       count_ = 0;
       orderSort_ = 0;
-      creationTime_ = "";
       serviceList_.Clear();
       orderInfo_ = "";
       simpleOrderID_ = 0;
@@ -28862,8 +28843,8 @@ namespace ETHotfix {
             attributeBag_.AddEntriesFrom(input, _repeated_attributeBag_codec);
             break;
           }
-          case 32: {
-            Price = input.ReadInt32();
+          case 37: {
+            Price = input.ReadFloat();
             break;
           }
           case 40: {
@@ -28874,20 +28855,16 @@ namespace ETHotfix {
             OrderSort = input.ReadInt32();
             break;
           }
-          case 58: {
-            CreationTime = input.ReadString();
-            break;
-          }
-          case 66:
-          case 64: {
+          case 58:
+          case 56: {
             serviceList_.AddEntriesFrom(input, _repeated_serviceList_codec);
             break;
           }
-          case 74: {
+          case 66: {
             OrderInfo = input.ReadString();
             break;
           }
-          case 80: {
+          case 72: {
             SimpleOrderID = input.ReadInt64();
             break;
           }
@@ -30144,11 +30121,11 @@ namespace ETHotfix {
       set { attributeBag_ = value; }
     }
 
-    private int price_;
+    private float price_;
     /// <summary>
     ///支付价格
     /// </summary>
-    public int Price {
+    public float Price {
       get { return price_; }
       set {
         price_ = value;
@@ -30176,9 +30153,9 @@ namespace ETHotfix {
         output.WriteInt64(UserID);
       }
       attributeBag_.WriteTo(output, _repeated_attributeBag_codec);
-      if (Price != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(Price);
+      if (Price != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Price);
       }
       if (Count != 0) {
         output.WriteRawTag(40);
@@ -30202,8 +30179,8 @@ namespace ETHotfix {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserID);
       }
       size += attributeBag_.CalculateSize(_repeated_attributeBag_codec);
-      if (Price != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Price);
+      if (Price != 0F) {
+        size += 1 + 4;
       }
       if (Count != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Count);
@@ -30215,7 +30192,7 @@ namespace ETHotfix {
       productInfoID_ = 0;
       userID_ = 0;
       attributeBag_.Clear();
-      price_ = 0;
+      price_ = 0f;
       count_ = 0;
       rpcId_ = 0;
       uint tag;
@@ -30236,8 +30213,8 @@ namespace ETHotfix {
             attributeBag_.AddEntriesFrom(input, _repeated_attributeBag_codec);
             break;
           }
-          case 32: {
-            Price = input.ReadInt32();
+          case 37: {
+            Price = input.ReadFloat();
             break;
           }
           case 40: {
@@ -30382,11 +30359,11 @@ namespace ETHotfix {
       set { attributeBag_ = value; }
     }
 
-    private int price_;
+    private float price_;
     /// <summary>
     ///支付价格
     /// </summary>
-    public int Price {
+    public float Price {
       get { return price_; }
       set {
         price_ = value;
@@ -30428,9 +30405,9 @@ namespace ETHotfix {
 
     public void WriteTo(pb::CodedOutputStream output) {
       attributeBag_.WriteTo(output, _repeated_attributeBag_codec);
-      if (Price != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Price);
+      if (Price != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Price);
       }
       if (Count != 0) {
         output.WriteRawTag(24);
@@ -30456,8 +30433,8 @@ namespace ETHotfix {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
       }
       size += attributeBag_.CalculateSize(_repeated_attributeBag_codec);
-      if (Price != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Price);
+      if (Price != 0F) {
+        size += 1 + 4;
       }
       if (Count != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Count);
@@ -30473,7 +30450,7 @@ namespace ETHotfix {
 
     public void MergeFrom(pb::CodedInputStream input) {
       attributeBag_.Clear();
-      price_ = 0;
+      price_ = 0f;
       count_ = 0;
       orderID_ = 0;
       userID_ = 0;
@@ -30488,8 +30465,8 @@ namespace ETHotfix {
             attributeBag_.AddEntriesFrom(input, _repeated_attributeBag_codec);
             break;
           }
-          case 16: {
-            Price = input.ReadInt32();
+          case 21: {
+            Price = input.ReadFloat();
             break;
           }
           case 24: {
@@ -34654,7 +34631,7 @@ namespace ETHotfix {
 
     private long shopActivityID_;
     /// <summary>
-    ///订单id
+    ///商铺活动ID
     /// </summary>
     public long ShopActivityID {
       get { return shopActivityID_; }
